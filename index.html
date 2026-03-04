@@ -1,52 +1,140 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Double B — DEBUG</title>
-  <style>
-    html,body{ height:100%; margin:0; }
-    body{ background:#000; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .scene{
-      position:relative;
-      height:100vh;
-      background:#111; /* should be visible even if images fail */
-      overflow:hidden;
-    }
-    .badge{
-      position:absolute; left:20px; top:20px; z-index:9999;
-      color:#fff; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-      background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.2);
-      padding:10px 12px; border-radius:12px;
-    }
-    /* Big red outlines so you MUST see them */
-    .decor, .obj{
-      position:absolute;
-      outline:4px solid red;
-      background:rgba(255,0,0,.18);
-      z-index:999;
-    }
-    .decor{ pointer-events:none; }
-    .obj{ cursor:pointer; }
-    /* fixed sizes/positions to guarantee visibility */
-    .decor.portal{ left:55%; top:45%; width:240px; height:340px; transform:translate(-50%,-50%); }
-    .decor.mirror{ left:55%; top:45%; width:240px; height:340px; transform:translate(-50%,-50%); outline-color:orange; }
 
-    .obj.ball{ left:20%; top:65%; width:140px; height:140px; transform:translate(-50%,-50%); }
-    .obj.eye{ left:85%; top:55%; width:140px; height:140px; transform:translate(-50%,-50%); }
-    .obj.figure{ left:60%; top:72%; width:90px; height:220px; transform:translate(-50%,-100%); outline-color:lime; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>DOUBLE B — Surreal Studio</title>
+
+<link rel="stylesheet" href="scene.css?v=1">
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+background:black;
+}
+
+.scene{
+position:relative;
+height:100vh;
+width:100vw;
+background:url("images/bg.png") center/cover no-repeat;
+}
+
+/* OBJECT BASE */
+.obj,.decor{
+position:absolute;
+}
+
+/* PORTAL */
+.portal{
+left:56%;
+top:47%;
+width:340px;
+height:460px;
+transform:translate(-50%,-50%);
+}
+
+.portal span{
+display:block;
+width:100%;
+height:100%;
+background:url("images/3.png") center/contain no-repeat;
+}
+
+/* MIRROR */
+.mirror{
+left:56%;
+top:47%;
+width:340px;
+height:460px;
+transform:translate(-50%,-50%);
+}
+
+.mirror span{
+display:block;
+width:100%;
+height:100%;
+background:url("images/4.png") center/contain no-repeat;
+}
+
+/* BALL */
+.ball{
+left:23%;
+top:64%;
+width:190px;
+height:190px;
+transform:translate(-50%,-50%);
+cursor:pointer;
+}
+
+.ball span{
+display:block;
+width:100%;
+height:100%;
+background:url("images/1.png") center/contain no-repeat;
+}
+
+/* EYE */
+.eye{
+left:86%;
+top:50%;
+width:180px;
+height:180px;
+transform:translate(-50%,-50%);
+cursor:pointer;
+}
+
+.eye span{
+display:block;
+width:100%;
+height:100%;
+background:url("images/2.png") center/contain no-repeat;
+}
+
+/* FIGURE */
+.figure{
+left:62%;
+top:72%;
+width:120px;
+height:260px;
+transform:translate(-50%,-100%);
+cursor:pointer;
+}
+
+.figure span{
+display:block;
+width:100%;
+height:100%;
+background:url("images/figure.png") center/contain no-repeat;
+}
+</style>
+
 </head>
+
 <body>
-  <section class="scene">
-    <div class="badge">DEBUG: if you don’t see red boxes, the page isn’t updating</div>
 
-    <div class="decor portal"></div>
-    <div class="decor mirror"></div>
+<section class="scene">
 
-    <div class="obj ball" onclick="alert('ball click ok')"></div>
-    <div class="obj figure" onclick="alert('figure click ok')"></div>
-    <div class="obj eye" onclick="alert('eye click ok')"></div>
-  </section>
+<div class="decor portal"><span></span></div>
+
+<div class="decor mirror"><span></span></div>
+
+<div class="obj ball" onclick="location.href='marketing.html'">
+<span></span>
+</div>
+
+<div class="obj eye" onclick="location.href='crm.html'">
+<span></span>
+</div>
+
+<div class="obj figure" onclick="location.href='social-media.html'">
+<span></span>
+</div>
+
+</section>
+
 </body>
 </html>
