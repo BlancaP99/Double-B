@@ -4,17 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Double B — Surreal Design Studio</title>
-  <meta name="description" content="Double B — multidisciplinary design studio. Motion, branding, web, marketing, CRM, social." />
+  <meta name="description" content="Double B — multidisciplinary design studio." />
 
-  <!-- Shared -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- Scene -->
   <link rel="stylesheet" href="scene.css" />
-  <!-- Page transitions -->
   <script src="app.js" defer></script>
 
   <style>
-    /* Hide the fixed navbar only on this page (we do custom scene UI) */
+    /* Hide fixed navbar on home scene */
     .nav { display:none !important; }
   </style>
 </head>
@@ -36,34 +33,41 @@
       <a href="motion-graphics.html">Motion graphics</a>
     </nav>
 
-    <!-- Objects (separate, clickable) -->
-    <button class="obj ball" data-go="marketing.html" aria-label="Red sphere — Marketing">
+    <!-- Exit overlay (cinematic darkening) -->
+    <div class="sceneExitOverlay" aria-hidden="true"></div>
+
+    <!-- Decorative portal + mirror (not clickable) -->
+    <div class="decor portal" aria-hidden="true"><span class="shape"></span></div>
+    <div class="decor mirror" aria-hidden="true"><span class="shape"></span></div>
+
+    <!-- Clickable objects (pages) -->
+    <button class="obj ball" data-go="ball.html" data-exit="ball" aria-label="Ball — enter">
       <span class="shape"></span>
     </button>
 
-    <button class="obj mirror" data-go="web-design.html" aria-label="Glass mirror — Web design">
+    <button class="obj figure" data-go="figure.html" data-exit="figure" aria-label="Figure — enter">
       <span class="shape"></span>
     </button>
 
-    <button class="obj eye" data-go="crm.html" aria-label="Eye sphere — CRM">
+    <button class="obj eye" data-go="eye.html" data-exit="eye" aria-label="Eye — enter">
       <span class="shape"></span>
     </button>
 
     <!-- Floor -->
     <div class="floor" aria-hidden="true"></div>
 
-    <!-- Bottom-left request form (placeholder) -->
+    <!-- Bottom-left request form -->
     <form class="sceneForm" action="request.html" method="GET">
       <div class="kicker">Request</div>
 
       <label for="email">Email</label>
-      <input id="email" name="email" type="email" placeholder="" required />
+      <input id="email" name="email" type="email" required />
 
       <label for="help">How can we help?</label>
-      <input id="help" name="help" type="text" placeholder="" />
+      <input id="help" name="help" type="text" />
 
       <label for="info">More information</label>
-      <textarea id="info" name="info" placeholder=""></textarea>
+      <textarea id="info" name="info"></textarea>
 
       <div class="btnRow">
         <button class="btn btnPrimary" type="submit">Send →</button>
@@ -71,20 +75,33 @@
       </div>
 
       <div class="small" style="margin-top:10px;opacity:.9">
-        Tip: click the objects. They lift and take you to pages.
+        Tip: click ball / figure / eye.
       </div>
     </form>
   </section>
 
   <script>
-    // Object lift + redirect (works with app.js transition overlay)
-    document.querySelectorAll(".obj[data-go]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const href = btn.getAttribute("data-go");
-        btn.classList.add("lift");
-        setTimeout(() => { window.location.href = href; }, 220);
+    (function(){
+      const scene = document.querySelector(".scene");
+      if(!scene) return;
+
+      const buttons = scene.querySelectorAll(".obj[data-go][data-exit]");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if(scene.classList.contains("is-transitioning")) return;
+
+          const href = btn.getAttribute("data-go");
+          const exit = btn.getAttribute("data-exit"); // ball | eye | figure
+
+          scene.classList.add("is-transitioning");
+          scene.classList.add("exit-" + exit);
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 520);
+        });
       });
-    });
+    })();
   </script>
 </body>
 </html>
