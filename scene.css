@@ -325,3 +325,60 @@
     top: 40%;
   }
 }
+/* ================================
+   EXACT placement to match reference
+   (desktop)
+================================== */
+@media (min-width: 900px){
+
+  /* Portal + mirror exactly centered slightly right */
+  .decor.portal,
+  .decor.mirror{
+    left: 57.2%;
+    top: 53.2%;
+    width: 360px;
+    height: 520px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* White ball (your 1.png) on the left */
+  .obj.ball{
+    left: 24.8%;
+    top: 63.0%;
+    width: 185px;
+    height: 185px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Eye on the right */
+  .obj.eye{
+    left: 86.3%;
+    top: 45.5%;
+    width: 190px;
+    height: 190px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Figure: placed in front of portal, standing on the floor */
+  .obj.figure{
+    left: 62.6%;
+    top: 64.5%;
+    width: 125px;
+    height: 285px;
+    transform: translate(-50%, -100%); /* anchor to feet */
+  }
+
+  /* Optional: soften shadows to match “clean studio” */
+  .obj.ball .shape,
+  .obj.eye .shape,
+  .obj.figure .shape{
+    filter: drop-shadow(0 18px 22px rgba(0,0,0,.32));
+  }
+  .decor.portal .shape,
+  .decor.mirror .shape{
+    filter: drop-shadow(0 26px 34px rgba(0,0,0,.30));
+  }
+
+  /* Reduce floor overlay since bg already contains the real checker */
+  .floor{ opacity: 0.0; }
+}
