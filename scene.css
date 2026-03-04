@@ -1,0 +1,202 @@
+/* Double B — HOME SCENE (separate objects, clickable) */
+
+.scene{
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 520px at 70% 15%, rgba(255,255,255,.18), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #1aa0ff 0%, #0b1a2a 70%, #07080c 100%);
+}
+
+/* subtle haze */
+.scene::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1100px 700px at 30% 25%, rgba(88,166,255,.20), transparent 60%),
+    radial-gradient(900px 600px at 70% 55%, rgba(255,59,47,.10), transparent 65%);
+  pointer-events:none;
+}
+
+/* floor */
+.floor{
+  position:absolute;
+  left:-20%;
+  right:-20%;
+  bottom:-18%;
+  height: 58%;
+  transform: skewY(-7deg);
+  transform-origin: bottom;
+  opacity: .85;
+  background:
+    linear-gradient(180deg, rgba(7,8,12,0) 0%, rgba(7,8,12,.55) 50%, rgba(7,8,12,.92) 100%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.10) 0 60px, rgba(0,0,0,0) 60px 120px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.10) 0 60px, rgba(0,0,0,0) 60px 120px);
+  mask-image: radial-gradient(900px 520px at 50% 20%, #000 55%, transparent 100%);
+}
+
+/* “checkers” illusion */
+.floor::after{
+  content:"";
+  position:absolute; inset:0;
+  opacity:.22;
+  background-size: 90px 90px;
+  background-image:
+    linear-gradient(45deg, rgba(242,243,247,.30) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(242,243,247,.30) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(242,243,247,.30) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(242,243,247,.30) 75%);
+  background-position: 0 0, 0 45px, 45px -45px, -45px 0px;
+}
+
+/* top-left brand */
+.sceneBrand{
+  position: absolute;
+  left: 28px;
+  top: 22px;
+  z-index: 10;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+/* center floating links */
+.sceneLinks{
+  position:absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  display:grid;
+  gap: 18px;
+  text-align:center;
+  color: rgba(242,243,247,.92);
+}
+.sceneLinks a{
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: 13px;
+  opacity: .92;
+}
+.sceneLinks a:hover{ opacity: 1; }
+
+/* bottom-left form */
+.sceneForm{
+  position:absolute;
+  left: 28px;
+  bottom: 26px;
+  z-index: 10;
+  width: min(320px, calc(100% - 56px));
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(242,243,247,.16);
+  background: rgba(7,8,12,.35);
+  backdrop-filter: blur(10px);
+}
+.sceneForm label{
+  display:block;
+  font-size: 12px;
+  color: rgba(242,243,247,.78);
+  margin: 10px 0 6px;
+}
+.sceneForm input, .sceneForm textarea{
+  width:100%;
+  border-radius: 999px;
+  border: 1px solid rgba(242,243,247,.16);
+  background: rgba(0,0,0,.22);
+  color: rgba(242,243,247,.92);
+  padding: 10px 12px;
+  outline:none;
+}
+.sceneForm textarea{
+  border-radius: 14px;
+  min-height: 90px;
+  resize: vertical;
+}
+.sceneForm .btnRow{
+  display:flex;
+  gap:10px;
+  margin-top: 12px;
+}
+
+/* Objects (separate layers) */
+.obj{
+  position:absolute;
+  z-index: 8;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: transform .42s cubic-bezier(.22,1,.36,1), filter .42s cubic-bezier(.22,1,.36,1);
+}
+.obj:focus-visible{ outline: 2px solid rgba(88,166,255,.65); outline-offset: 6px; border-radius: 18px; }
+
+.obj .shape{
+  display:block;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+}
+
+/* “Lift” animation before redirect */
+.obj.lift{
+  transform: translateY(-26px) scale(1.03);
+  filter: drop-shadow(0 30px 45px rgba(0,0,0,.55));
+}
+
+/* Placeholder objects (later replace with PNGs) */
+.obj.ball{
+  left: 18%;
+  bottom: 19%;
+  width: 140px;
+  height: 140px;
+}
+.obj.ball .shape{
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.60), rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 60% 70%, rgba(0,0,0,.40), rgba(0,0,0,0) 46%),
+    radial-gradient(circle at 50% 50%, rgba(255,59,47,.95), rgba(255,59,47,.20) 72%, rgba(255,59,47,0) 100%);
+}
+
+.obj.eye{
+  right: 16%;
+  bottom: 20%;
+  width: 150px;
+  height: 150px;
+}
+.obj.eye .shape{
+  background:
+    radial-gradient(circle at 40% 40%, rgba(255,255,255,.70), rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 55% 55%, rgba(0,0,0,.55), rgba(0,0,0,0) 46%),
+    radial-gradient(circle at 50% 50%, rgba(242,243,247,.85), rgba(242,243,247,.18) 72%, rgba(242,243,247,0) 100%);
+  opacity:.75;
+}
+
+.obj.mirror{
+  left: 52%;
+  top: 56%;
+  width: 280px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+}
+.obj.mirror .shape{
+  border-radius: 240px;
+  border: 1px solid rgba(242,243,247,.18);
+  background:
+    radial-gradient(140px 220px at 55% 35%, rgba(88,166,255,.60), rgba(88,166,255,0) 70%),
+    radial-gradient(180px 260px at 45% 70%, rgba(255,184,107,.28), rgba(255,184,107,0) 75%),
+    linear-gradient(180deg, rgba(15,18,26,.18), rgba(7,8,12,.10));
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 50px 120px rgba(0,0,0,.55);
+  backdrop-filter: blur(8px);
+}
+
+/* responsive tweak */
+@media (max-width: 780px){
+  .obj.mirror{ width: 220px; height: 340px; top: 52%; }
+  .obj.ball{ width: 110px; height: 110px; left: 10%; }
+  .obj.eye{ width: 120px; height: 120px; right: 10%; }
+  .sceneLinks{ top: 38%; }
+}
