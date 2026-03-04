@@ -148,57 +148,47 @@
 .obj.ball{
   left: 28%;
   bottom: 20%;
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
 }
 .obj.ball .shape{
-  width:100%;height:100%;
-  border-radius:9999px;
-  background:
-    radial-gradient(circle at 35% 28%, rgba(255,255,255,.60), rgba(255,255,255,0) 38%),
-    radial-gradient(circle at 62% 72%, rgba(0,0,0,.50), rgba(0,0,0,0) 46%),
-    radial-gradient(circle at 50% 50%, rgba(255,59,47,.95), rgba(255,59,47,.20) 72%, rgba(255,59,47,0) 100%);
+  width:100%;
+  height:100%;
+  border-radius: 9999px;
+  background: url("images/1.png") center/contain no-repeat;
+  filter: drop-shadow(0 22px 26px rgba(0,0,0,.35));
 }
 
 /* Eye orb */
 .obj.eye{
   right: 18%;
   bottom: 21%;
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
 }
 .obj.eye .shape{
-  width:100%;height:100%;
-  border-radius:9999px;
-  background:
-    radial-gradient(circle at 42% 40%, rgba(255,255,255,.72), rgba(255,255,255,0) 44%),
-    radial-gradient(circle at 55% 55%, rgba(0,0,0,.60), rgba(0,0,0,0) 48%),
-    radial-gradient(circle at 50% 50%, rgba(242,243,247,.85), rgba(242,243,247,.20) 70%, rgba(242,243,247,0) 100%);
-  opacity:.78;
+  width:100%;
+  height:100%;
+  border-radius: 9999px;
+  background: url("images/2.png") center/contain no-repeat;
+  filter: drop-shadow(0 22px 26px rgba(0,0,0,.35));
 }
 
 /* Glass portal */
+/* Portal / forma (PNG) */
 .obj.mirror{
   left: 55%;
   top: 52%;
-  width: 320px;
-  height: 460px;
+  width: 420px;
+  height: 560px;
   transform: translate(-50%, -50%);
 }
+
 .obj.mirror .shape{
-  width:100%;height:100%;
-  border-radius: 280px;
-  border: 1px solid rgba(242,243,247,.16);
-  background:
-    radial-gradient(160px 260px at 55% 35%, rgba(88,166,255,.58), rgba(88,166,255,0) 70%),
-    radial-gradient(210px 320px at 45% 72%, rgba(255,184,107,.24), rgba(255,184,107,0) 75%),
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.10));
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.06) inset,
-    0 60px 140px rgba(0,0,0,.55);
-  backdrop-filter: blur(10px);
-  position:relative;
-  overflow:hidden;
+  width: 100%;
+  height: 100%;
+  background: url("images/3.png") center/contain no-repeat;
+  filter: drop-shadow(0 36px 46px rgba(0,0,0,.45));
 }
 
 /* inside portal “ghost image” to resemble your reference (replace later with real image) */
