@@ -239,3 +239,170 @@
   .obj.eye{ width: 120px; height: 120px; right: 12%; }
   .sceneLinks{ top: 38%; }
 }
+/* ================================
+   HOME layout like reference image
+================================== */
+
+/* Use real background already set in .scene (bg.png) */
+/* If your current .scene has gradient overlay, keep it. */
+
+.sceneLinks{
+  top: 44%;
+  gap: 14px;
+}
+.sceneLinks a{
+  font-size: 12px;
+  letter-spacing: .16em;
+}
+
+/* Decorative portal + mirror (NOT clickable for now) */
+.decor{
+  position:absolute;
+  border:0;
+  padding:0;
+  background:transparent;
+  pointer-events:none;
+  z-index: 6;
+}
+
+.decor.portal{
+  left: 56%;
+  top: 52%;
+  width: 520px;
+  height: 720px;
+  transform: translate(-50%, -50%);
+}
+.decor.portal .shape{
+  width:100%;
+  height:100%;
+  background: url("images/3.png") center/contain no-repeat;
+  filter: drop-shadow(0 45px 60px rgba(0,0,0,.45));
+}
+
+.decor.mirror{
+  left: 56%;
+  top: 52%;
+  width: 520px;
+  height: 720px;
+  transform: translate(-50%, -50%);
+  opacity: .65; /* make it subtle if it overlaps */
+}
+.decor.mirror .shape{
+  width:100%;
+  height:100%;
+  background: url("images/4.png") center/contain no-repeat;
+  filter: drop-shadow(0 35px 45px rgba(0,0,0,.40));
+}
+
+/* Clickable objects */
+.obj{
+  z-index: 8;
+}
+
+/* Left ball (clickable) */
+.obj.ball{
+  left: 14%;
+  bottom: 18%;
+  width: 190px;
+  height: 190px;
+}
+.obj.ball .shape{
+  width:100%;
+  height:100%;
+  background: url("images/1.png") center/contain no-repeat;
+  filter: drop-shadow(0 28px 34px rgba(0,0,0,.42));
+}
+
+/* Right eye (clickable) */
+.obj.eye{
+  right: 17%;
+  bottom: 22%;
+  width: 160px;
+  height: 160px;
+}
+.obj.eye .shape{
+  width:100%;
+  height:100%;
+  background: url("images/2.png") center/contain no-repeat;
+  filter: drop-shadow(0 26px 32px rgba(0,0,0,.40));
+}
+
+/* Center figure (clickable) */
+.obj.figure{
+  left: 56%;
+  bottom: 22%;
+  width: 120px;
+  height: 260px;
+  transform: translateX(-50%);
+}
+.obj.figure .shape{
+  width:100%;
+  height:100%;
+  background: url("images/figure.png") center/contain no-repeat;
+  filter: drop-shadow(0 32px 40px rgba(0,0,0,.55));
+}
+
+/* ================================
+   Transition: everything moves out
+================================== */
+
+.scene.is-transitioning{
+  cursor: progress;
+}
+.scene.is-transitioning *{
+  pointer-events: none;
+}
+
+.sceneExitOverlay{
+  position:absolute;
+  inset:0;
+  z-index: 50;
+  opacity: 0;
+  background:
+    radial-gradient(900px 560px at 55% 45%, rgba(0,0,0,0) 35%, rgba(0,0,0,.72) 100%),
+    rgba(0,0,0,.25);
+  transition: opacity .55s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;
+}
+.scene.is-transitioning .sceneExitOverlay{
+  opacity: 1;
+}
+
+/* Default exit motion */
+.scene.is-transitioning .obj,
+.scene.is-transitioning .decor{
+  transition: transform .7s cubic-bezier(.22,1,.36,1), opacity .7s cubic-bezier(.22,1,.36,1), filter .7s cubic-bezier(.22,1,.36,1);
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* Different “camera pulls” depending on clicked object */
+.scene.exit-ball .obj.ball{ transform: translateY(-80px) translateX(-40px) scale(1.05) rotate(-2deg); opacity: 1; filter: none; }
+.scene.exit-ball .obj.eye{ transform: translateX(120px) translateY(30px) scale(.9); }
+.scene.exit-ball .obj.figure{ transform: translateY(90px) scale(.92); }
+.scene.exit-ball .decor{ transform: translateY(40px) scale(.96); }
+
+.scene.exit-eye .obj.eye{ transform: translateY(-70px) translateX(40px) scale(1.05) rotate(2deg); opacity: 1; filter: none; }
+.scene.exit-eye .obj.ball{ transform: translateX(-140px) translateY(30px) scale(.9); }
+.scene.exit-eye .obj.figure{ transform: translateY(90px) scale(.92); }
+.scene.exit-eye .decor{ transform: translateY(40px) scale(.96); }
+
+.scene.exit-figure .obj.figure{ transform: translateY(-85px) scale(1.06); opacity: 1; filter: none; }
+.scene.exit-figure .obj.ball{ transform: translateX(-120px) translateY(40px) scale(.9); }
+.scene.exit-figure .obj.eye{ transform: translateX(120px) translateY(40px) scale(.9); }
+.scene.exit-figure .decor{ transform: translateY(40px) scale(.96); }
+
+/* fade floor too */
+.scene.is-transitioning .floor{
+  transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  opacity: 0;
+  transform: perspective(1000px) rotateX(58deg) translateY(80px);
+}
+
+/* responsive */
+@media (max-width: 780px){
+  .decor.portal, .decor.mirror{ width: 320px; height: 460px; left: 56%; top: 48%; }
+  .obj.ball{ width: 140px; height: 140px; left: 8%; bottom: 18%; }
+  .obj.eye{ width: 120px; height: 120px; right: 10%; bottom: 22%; }
+  .obj.figure{ width: 90px; height: 190px; left: 56%; bottom: 24%; }
+}
