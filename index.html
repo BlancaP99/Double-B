@@ -5,125 +5,117 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Double B — Surreal Design Studio</title>
   <meta name="description" content="Double B — multidisciplinary design studio. Motion, branding, web, marketing, CRM, social." />
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Page transitions -->
+  <script src="app.js" defer></script>
+
   <style>
-    :root{
-      --bg:#07080c;
-      --fg:#f2f3f7;
-      --muted:rgba(242,243,247,.72);
-      --line:rgba(242,243,247,.14);
-      --accent:#ff3b2f;
-      --accent2:#58a6ff;
-      --radius:18px;
-      --max:1120px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      background:var(--bg);
-      color:var(--fg);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{width:min(var(--max),calc(100% - 40px));margin:0 auto}
-    .nav{
-      position:fixed;left:0;right:0;top:0;z-index:5;
-      padding:14px 0;
-    }
-    .nav .bar{
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:rgba(10,10,14,.45);
-      backdrop-filter: blur(8px);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 12px;
-    }
-    .badge{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      font-size:13px;opacity:.9;
-      transition:transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-    .badge:hover{transform:translateY(-1px);background:rgba(255,255,255,.06);border-color:rgba(242,243,247,.24)}
-    .hero{
-      padding-top:96px;
-      padding-bottom:70px;
-      position:relative;
-      z-index:2;
-    }
-    .kicker{ text-transform:uppercase; letter-spacing:.14em; font-size:12px; color:var(--muted) }
-    h1{
-      font-size:clamp(42px,5.6vw,78px);
-      line-height:1.02;
-      margin:10px 0 10px 0;
-      font-weight:650;
-    }
-    .lead{ color:var(--muted); font-size:16px; line-height:1.7; max-width:64ch }
-    .row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:18px }
-    .btn{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--fg);
-      border-radius:999px;
-      padding:12px 16px;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      transition:transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.06);border-color:rgba(242,243,247,.24)}
-    .btnPrimary{border-color:rgba(255,59,47,.45);background:rgba(255,59,47,.14)}
-    .btnPrimary:hover{border-color:rgba(255,59,47,.65);background:rgba(255,59,47,.18)}
-    .grid{
-      display:grid;
-      grid-template-columns:1.25fr .75fr;
-      gap:18px;
-      margin-top:26px;
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-    .card{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.03);
-      backdrop-filter: blur(8px);
-      padding:16px;
-    }
-    .small{font-size:13px;color:var(--muted)}
-    .hr{height:1px;background:var(--line);width:100%}
-    /* Surreal background */
-    .bg{
-      position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
-    }
-    .bg::before{
-      content:"";
+    /* Home-only extras (vibe: portal/door + collage) */
+    .collage{
       position:absolute; inset:0;
-      background:
-        radial-gradient(1200px 700px at 70% 10%, rgba(88,166,255,.25), transparent 60%),
-        radial-gradient(900px 600px at 20% 30%, rgba(255,184,107,.14), transparent 60%),
-        linear-gradient(180deg, rgba(7,8,12,1) 0%, rgba(7,8,12,1) 35%, rgba(10,10,14,1) 100%);
+      opacity:.14;
+      mix-blend-mode: screen;
+      filter: saturate(1.2) contrast(1.05);
+      background-image:
+        url("https://images.unsplash.com/photo-1526318472351-c75fcf070305?auto=format&fit=crop&w=1200&q=60"),
+        url("https://images.unsplash.com/photo-1520975958225-29f1e9d50ad1?auto=format&fit=crop&w=1200&q=60");
+      background-repeat:no-repeat;
+      background-size: 520px auto, 520px auto;
+      background-position: 8% 22%, 78% 28%;
+      pointer-events:none;
     }
-    .orb{
-      position:absolute; border-radius:9999px;
-      background:
-        radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 36%),
-        radial-gradient(circle at 60% 70%, rgba(0,0,0,.45), rgba(0,0,0,0) 45%),
-        radial-gradient(circle at 50% 50%, rgba(255,59,47,.95), rgba(255,59,47,.25) 70%, rgba(255,59,47,0) 100%);
-      opacity:.75;
-      transform:translate(-50%,-50%);
-      filter: drop-shadow(0 0 60px rgba(255,59,47,.22));
+    /* Puedes reemplazar esas 2 imágenes luego por las vuestras en /images/ */
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      margin-top: 22px;
+      align-items: stretch;
     }
-    .floor{
-      position:absolute; left:-10%; right:-10%; bottom:-18%;
-      height:48%;
-      transform:skewY(-6deg);
-      opacity:.18;
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns:1fr; }
+    }
+
+    .portalCard{
+      position: relative;
+      overflow:hidden;
+      min-height: 340px;
+    }
+
+    .portal{
+      position:absolute;
+      left: 50%;
+      top: 52%;
+      width: min(440px, 86%);
+      height: 78%;
+      transform: translate(-50%, -50%);
+      border-radius: 260px;
+      border: 1px solid rgba(242,243,247,.18);
+      background:
+        radial-gradient(140px 220px at 55% 35%, rgba(88,166,255,.55), rgba(88,166,255,0) 70%),
+        radial-gradient(180px 260px at 45% 70%, rgba(255,184,107,.28), rgba(255,184,107,0) 75%),
+        linear-gradient(180deg, rgba(15,18,26,.2), rgba(7,8,12,.2));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.06) inset,
+        0 50px 120px rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+    }
+
+    .portalGlow{
+      position:absolute;
+      left:50%;
+      top:52%;
+      width: min(520px, 96%);
+      height: 90%;
+      transform: translate(-50%, -50%);
+      border-radius: 300px;
+      background: radial-gradient(circle at 50% 45%, rgba(255,59,47,.18), transparent 58%);
+      filter: blur(18px);
+      opacity:.9;
+    }
+
+    .ladder{
+      position:absolute;
+      left: 18%;
+      bottom: 16%;
+      width: 10px;
+      height: 46%;
+      border-radius: 99px;
+      background: rgba(242,243,247,.16);
+      box-shadow: 22px 0 0 rgba(242,243,247,.16);
+      opacity: .55;
+      transform: rotate(-2deg);
+    }
+    .ladder::before{
+      content:"";
+      position:absolute;
+      left:-12px; right:-12px;
+      top:12px; bottom:12px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(242,243,247,.18) 0px,
+          rgba(242,243,247,.18) 4px,
+          transparent 4px,
+          transparent 22px
+        );
+      opacity:.8;
+      border-radius: 20px;
+      filter: blur(.2px);
+    }
+
+    .chessHint{
+      position:absolute;
+      right:-18%;
+      bottom:-28%;
+      width: 70%;
+      height: 52%;
+      transform: rotate(8deg);
+      opacity:.22;
       background-size:60px 60px;
       background-image:
         linear-gradient(45deg, rgba(242,243,247,.22) 25%, transparent 25%),
@@ -131,96 +123,96 @@
         linear-gradient(45deg, transparent 75%, rgba(242,243,247,.22) 75%),
         linear-gradient(-45deg, transparent 75%, rgba(242,243,247,.22) 75%);
       background-position:0 0, 0 30px, 30px -30px, -30px 0px;
+      filter: blur(.2px);
     }
-    .vignette{
-      position:absolute; inset:-1px;
-      background: radial-gradient(900px 600px at 50% 35%, transparent 55%, rgba(0,0,0,.6) 100%);
+
+    .floatingText{
+      position:absolute;
+      left: 10%;
+      top: 12%;
+      max-width: 32ch;
+      color: rgba(242,243,247,.78);
+      font-size: 13px;
+      line-height: 1.6;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
   </style>
 </head>
+
 <body>
+  <!-- Background -->
   <div class="bg">
     <div class="orb" style="left:8%; top:22%; width:240px; height:240px;"></div>
     <div class="orb" style="left:78%; top:18%; width:180px; height:180px; filter:none; opacity:.55;"></div>
     <div class="orb" style="left:70%; top:72%; width:260px; height:260px;"></div>
     <div class="orb" style="left:18%; top:74%; width:160px; height:160px; filter:none; opacity:.55;"></div>
     <div class="floor"></div>
+    <div class="collage"></div>
     <div class="vignette"></div>
   </div>
 
+  <!-- NAV -->
   <header class="nav">
     <div class="container">
       <div class="bar">
-        <a href="#" style="display:flex;align-items:baseline;gap:10px;padding:8px 10px">
+        <a class="brand" href="index.html">
           <span style="font-weight:800;letter-spacing:.02em">DOUBLE B</span>
           <span class="small" style="opacity:.85">surreal studio</span>
         </a>
-        <nav style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
-          <a class="badge" href="#who">Who we are</a>
-          <a class="badge" href="#mission">Mission</a>
-          <a class="badge" href="#catalog">Catalog</a>
-          <a class="badge" href="#request">Request</a>
+
+        <nav class="links">
+          <a class="badge" href="who-we-are.html">Who we are</a>
+          <a class="badge" href="mission.html">Our mission</a>
+          <a class="badge" href="catalog.html">Catalog</a>
+          <a class="badge" href="create-presentation.html">Create presentation</a>
+          <a class="badge" href="request.html">Request</a>
         </nav>
       </div>
     </div>
   </header>
 
-  <section class="hero container">
+  <!-- PAGE -->
+  <section class="page container">
     <div class="kicker">multidisciplinary design studio</div>
-    <h1>Bold identities.<br/>Surreal worlds.</h1>
-    <p class="lead">
+    <div class="h1">Bold identities.<br/>Surreal worlds.</div>
+    <p class="p">
       Double B crafts expressive visual universes across motion graphics, graphic design, web design, branding,
       marketing, CRM and social direction — moving away from minimal and generic solutions.
     </p>
 
-    <div class="row">
-      <a class="btn btnPrimary" href="#request">Request a project →</a>
-      <a class="btn" href="#catalog">View catalog</a>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:18px">
+      <a class="btn btnPrimary" href="request.html">Request a project →</a>
+      <a class="btn" href="catalog.html">View catalog</a>
     </div>
 
-    <div class="grid">
-      <div class="card" id="who">
-        <div class="kicker">WHO WE ARE</div>
-        <p class="lead" style="margin-top:10px">
-          We are a multidisciplinary design studio founded by Blanca and Beatriz Palazuelo, focused on crafting bold,
-          contemporary visual identities. Our work spans motion graphics, graphic design, web design, branding,
-          marketing, CRM, and social media direction, always with a strong creative perspective.
-          <br/><br/>
-          Blanca Palazuelo contributes a distinctive creative vision rooted in graphic design, motion graphics, web
-          design, branding, and creative direction; while Beatriz brings solid experience from corporate environments,
-          with a background in marketing strategy, CRM, social media management, and graphic design.
-        </p>
-      </div>
+    <div class="heroGrid">
+      <div class="card">
+        <div class="kicker">quick navigation</div>
+        <div class="hr" style="margin:12px 0"></div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a class="badge" href="who-we-are.html">WHO WE ARE</a>
+          <a class="badge" href="mission.html">OUR MISSION</a>
+          <a class="badge" href="catalog.html">CATALOG</a>
+          <a class="badge" href="create-presentation.html">CREATE PRESENTATION</a>
+          <a class="badge" href="request.html">REQUEST</a>
+        </div>
 
-      <div class="card" id="mission">
-        <div class="kicker">OUR MISSION</div>
-        <p class="lead" style="margin-top:10px">
-          Our mission is to help brands build a strong, recognizable identity with a clear voice and visual universe
-          of their own. By combining strategic marketing insight with high impact creative execution, we offer a 360°
-          approach to brand image — from concept and identity to digital presence.
-        </p>
         <div class="hr" style="margin:14px 0"></div>
-        <div class="small">Next step: we’ll split this into real pages + surreal page transitions.</div>
+        <p class="small">
+          This site uses surreal page transitions. Next step: upload your own images into <b>/images</b> and we replace the collage.
+        </p>
       </div>
-    </div>
 
-    <div class="card" id="catalog" style="margin-top:18px">
-      <div class="kicker">CATALOG</div>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-        <span class="badge">Motion graphics</span>
-        <span class="badge">Graphic design</span>
-        <span class="badge">Web design</span>
-        <span class="badge">Digital marketing</span>
-        <span class="badge">CRM</span>
-        <span class="badge">Creative direction</span>
-        <span class="badge">Branding</span>
-        <span class="badge">Social media design & management</span>
+      <div class="card portalCard" aria-label="Surreal portal">
+        <div class="floatingText">
+          a door in the sky · a chess floor · a glass arch · a world that feels alive
+        </div>
+        <div class="portalGlow"></div>
+        <div class="portal"></div>
+        <div class="ladder"></div>
+        <div class="chessHint"></div>
       </div>
-    </div>
-
-    <div class="card" id="request" style="margin-top:18px">
-      <div class="kicker">REQUEST</div>
-      <p class="lead" style="margin-top:10px">For now this is a placeholder. Next we’ll add a real form that emails you.</p>
     </div>
   </section>
 
@@ -235,5 +227,7 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+</body>
+</html>
 </body>
 </html>
