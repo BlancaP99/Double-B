@@ -6,228 +6,85 @@
   <title>Double B — Surreal Design Studio</title>
   <meta name="description" content="Double B — multidisciplinary design studio. Motion, branding, web, marketing, CRM, social." />
 
-  <!-- Global styles -->
+  <!-- Shared -->
   <link rel="stylesheet" href="styles.css" />
-
+  <!-- Scene -->
+  <link rel="stylesheet" href="scene.css" />
   <!-- Page transitions -->
   <script src="app.js" defer></script>
 
   <style>
-    /* Home-only extras (vibe: portal/door + collage) */
-    .collage{
-      position:absolute; inset:0;
-      opacity:.14;
-      mix-blend-mode: screen;
-      filter: saturate(1.2) contrast(1.05);
-      background-image:
-        url("https://images.unsplash.com/photo-1526318472351-c75fcf070305?auto=format&fit=crop&w=1200&q=60"),
-        url("https://images.unsplash.com/photo-1520975958225-29f1e9d50ad1?auto=format&fit=crop&w=1200&q=60");
-      background-repeat:no-repeat;
-      background-size: 520px auto, 520px auto;
-      background-position: 8% 22%, 78% 28%;
-      pointer-events:none;
-    }
-    /* Puedes reemplazar esas 2 imágenes luego por las vuestras en /images/ */
-
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      margin-top: 22px;
-      align-items: stretch;
-    }
-    @media (max-width: 980px){
-      .heroGrid{ grid-template-columns:1fr; }
-    }
-
-    .portalCard{
-      position: relative;
-      overflow:hidden;
-      min-height: 340px;
-    }
-
-    .portal{
-      position:absolute;
-      left: 50%;
-      top: 52%;
-      width: min(440px, 86%);
-      height: 78%;
-      transform: translate(-50%, -50%);
-      border-radius: 260px;
-      border: 1px solid rgba(242,243,247,.18);
-      background:
-        radial-gradient(140px 220px at 55% 35%, rgba(88,166,255,.55), rgba(88,166,255,0) 70%),
-        radial-gradient(180px 260px at 45% 70%, rgba(255,184,107,.28), rgba(255,184,107,0) 75%),
-        linear-gradient(180deg, rgba(15,18,26,.2), rgba(7,8,12,.2));
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.06) inset,
-        0 50px 120px rgba(0,0,0,.55);
-      backdrop-filter: blur(6px);
-    }
-
-    .portalGlow{
-      position:absolute;
-      left:50%;
-      top:52%;
-      width: min(520px, 96%);
-      height: 90%;
-      transform: translate(-50%, -50%);
-      border-radius: 300px;
-      background: radial-gradient(circle at 50% 45%, rgba(255,59,47,.18), transparent 58%);
-      filter: blur(18px);
-      opacity:.9;
-    }
-
-    .ladder{
-      position:absolute;
-      left: 18%;
-      bottom: 16%;
-      width: 10px;
-      height: 46%;
-      border-radius: 99px;
-      background: rgba(242,243,247,.16);
-      box-shadow: 22px 0 0 rgba(242,243,247,.16);
-      opacity: .55;
-      transform: rotate(-2deg);
-    }
-    .ladder::before{
-      content:"";
-      position:absolute;
-      left:-12px; right:-12px;
-      top:12px; bottom:12px;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(242,243,247,.18) 0px,
-          rgba(242,243,247,.18) 4px,
-          transparent 4px,
-          transparent 22px
-        );
-      opacity:.8;
-      border-radius: 20px;
-      filter: blur(.2px);
-    }
-
-    .chessHint{
-      position:absolute;
-      right:-18%;
-      bottom:-28%;
-      width: 70%;
-      height: 52%;
-      transform: rotate(8deg);
-      opacity:.22;
-      background-size:60px 60px;
-      background-image:
-        linear-gradient(45deg, rgba(242,243,247,.22) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(242,243,247,.22) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgba(242,243,247,.22) 75%),
-        linear-gradient(-45deg, transparent 75%, rgba(242,243,247,.22) 75%);
-      background-position:0 0, 0 30px, 30px -30px, -30px 0px;
-      filter: blur(.2px);
-    }
-
-    .floatingText{
-      position:absolute;
-      left: 10%;
-      top: 12%;
-      max-width: 32ch;
-      color: rgba(242,243,247,.78);
-      font-size: 13px;
-      line-height: 1.6;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
+    /* Hide the fixed navbar only on this page (we do custom scene UI) */
+    .nav { display:none !important; }
   </style>
 </head>
 
 <body>
-  <!-- Background -->
-  <div class="bg">
-    <div class="orb" style="left:8%; top:22%; width:240px; height:240px;"></div>
-    <div class="orb" style="left:78%; top:18%; width:180px; height:180px; filter:none; opacity:.55;"></div>
-    <div class="orb" style="left:70%; top:72%; width:260px; height:260px;"></div>
-    <div class="orb" style="left:18%; top:74%; width:160px; height:160px; filter:none; opacity:.55;"></div>
-    <div class="floor"></div>
-    <div class="collage"></div>
-    <div class="vignette"></div>
-  </div>
-
-  <!-- NAV -->
-  <header class="nav">
-    <div class="container">
-      <div class="bar">
-        <a class="brand" href="index.html">
-          <span style="font-weight:800;letter-spacing:.02em">DOUBLE B</span>
-          <span class="small" style="opacity:.85">surreal studio</span>
-        </a>
-
-        <nav class="links">
-          <a class="badge" href="who-we-are.html">Who we are</a>
-          <a class="badge" href="mission.html">Our mission</a>
-          <a class="badge" href="catalog.html">Catalog</a>
-          <a class="badge" href="create-presentation.html">Create presentation</a>
-          <a class="badge" href="request.html">Request</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <!-- PAGE -->
-  <section class="page container">
-    <div class="kicker">multidisciplinary design studio</div>
-    <div class="h1">Bold identities.<br/>Surreal worlds.</div>
-    <p class="p">
-      Double B crafts expressive visual universes across motion graphics, graphic design, web design, branding,
-      marketing, CRM and social direction — moving away from minimal and generic solutions.
-    </p>
-
-    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:18px">
-      <a class="btn btnPrimary" href="request.html">Request a project →</a>
-      <a class="btn" href="catalog.html">View catalog</a>
+  <section class="scene" aria-label="Double B home scene">
+    <div class="sceneBrand">
+      <span style="font-size:18px;">DOUBLE B</span>
+      <span style="opacity:.75;font-size:12px;margin-left:10px;letter-spacing:.12em;text-transform:uppercase">surreal studio</span>
     </div>
 
-    <div class="heroGrid">
-      <div class="card">
-        <div class="kicker">quick navigation</div>
-        <div class="hr" style="margin:12px 0"></div>
-        <div style="display:flex;flex-wrap:wrap;gap:10px">
-          <a class="badge" href="who-we-are.html">WHO WE ARE</a>
-          <a class="badge" href="mission.html">OUR MISSION</a>
-          <a class="badge" href="catalog.html">CATALOG</a>
-          <a class="badge" href="create-presentation.html">CREATE PRESENTATION</a>
-          <a class="badge" href="request.html">REQUEST</a>
-        </div>
+    <!-- Floating services (links) -->
+    <nav class="sceneLinks" aria-label="Services navigation">
+      <a href="marketing.html">Marketing</a>
+      <a href="crm.html">CRM</a>
+      <a href="social-media.html">Social media</a>
+      <a href="graphic-design.html">Graphic design</a>
+      <a href="web-design.html">Web design</a>
+      <a href="motion-graphics.html">Motion graphics</a>
+    </nav>
 
-        <div class="hr" style="margin:14px 0"></div>
-        <p class="small">
-          This site uses surreal page transitions. Next step: upload your own images into <b>/images</b> and we replace the collage.
-        </p>
+    <!-- Objects (separate, clickable) -->
+    <button class="obj ball" data-go="marketing.html" aria-label="Red sphere — Marketing">
+      <span class="shape"></span>
+    </button>
+
+    <button class="obj mirror" data-go="web-design.html" aria-label="Glass mirror — Web design">
+      <span class="shape"></span>
+    </button>
+
+    <button class="obj eye" data-go="crm.html" aria-label="Eye sphere — CRM">
+      <span class="shape"></span>
+    </button>
+
+    <!-- Floor -->
+    <div class="floor" aria-hidden="true"></div>
+
+    <!-- Bottom-left request form (placeholder) -->
+    <form class="sceneForm" action="request.html" method="GET">
+      <div class="kicker">Request</div>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="" required />
+
+      <label for="help">How can we help?</label>
+      <input id="help" name="help" type="text" placeholder="" />
+
+      <label for="info">More information</label>
+      <textarea id="info" name="info" placeholder=""></textarea>
+
+      <div class="btnRow">
+        <button class="btn btnPrimary" type="submit">Send →</button>
+        <a class="btn" href="who-we-are.html">About</a>
       </div>
 
-      <div class="card portalCard" aria-label="Surreal portal">
-        <div class="floatingText">
-          a door in the sky · a chess floor · a glass arch · a world that feels alive
-        </div>
-        <div class="portalGlow"></div>
-        <div class="portal"></div>
-        <div class="ladder"></div>
-        <div class="chessHint"></div>
+      <div class="small" style="margin-top:10px;opacity:.9">
+        Tip: click the objects. They lift and take you to pages.
       </div>
-    </div>
+    </form>
   </section>
 
-  <footer class="container" style="padding:0 0 60px 0">
-    <div class="hr"></div>
-    <div style="display:flex;justify-content:space-between;gap:12px;padding-top:14px;flex-wrap:wrap">
-      <div class="small">© <span id="y"></span> Double B Studio</div>
-      <div class="small">Design that feels alive · Strategy + Imagination</div>
-    </div>
-  </footer>
-
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    // Object lift + redirect (works with app.js transition overlay)
+    document.querySelectorAll(".obj[data-go]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const href = btn.getAttribute("data-go");
+        btn.classList.add("lift");
+        setTimeout(() => { window.location.href = href; }, 220);
+      });
+    });
   </script>
-</body>
-</html>
 </body>
 </html>
