@@ -3,105 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Double B — Surreal Design Studio</title>
-  <meta name="description" content="Double B — multidisciplinary design studio." />
-
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="scene.css?v=7" />
-  <script src="app.js" defer></script>
-
+  <title>Double B — DEBUG</title>
   <style>
-    /* Hide fixed navbar on home scene */
-    .nav{ display:none !important; }
+    html,body{ height:100%; margin:0; }
+    body{ background:#000; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .scene{
+      position:relative;
+      height:100vh;
+      background:#111; /* should be visible even if images fail */
+      overflow:hidden;
+    }
+    .badge{
+      position:absolute; left:20px; top:20px; z-index:9999;
+      color:#fff; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+      background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.2);
+      padding:10px 12px; border-radius:12px;
+    }
+    /* Big red outlines so you MUST see them */
+    .decor, .obj{
+      position:absolute;
+      outline:4px solid red;
+      background:rgba(255,0,0,.18);
+      z-index:999;
+    }
+    .decor{ pointer-events:none; }
+    .obj{ cursor:pointer; }
+    /* fixed sizes/positions to guarantee visibility */
+    .decor.portal{ left:55%; top:45%; width:240px; height:340px; transform:translate(-50%,-50%); }
+    .decor.mirror{ left:55%; top:45%; width:240px; height:340px; transform:translate(-50%,-50%); outline-color:orange; }
+
+    .obj.ball{ left:20%; top:65%; width:140px; height:140px; transform:translate(-50%,-50%); }
+    .obj.eye{ left:85%; top:55%; width:140px; height:140px; transform:translate(-50%,-50%); }
+    .obj.figure{ left:60%; top:72%; width:90px; height:220px; transform:translate(-50%,-100%); outline-color:lime; }
   </style>
 </head>
-
 <body>
-  <section class="scene" aria-label="Double B home scene">
-    <div class="sceneBrand">
-      <span style="font-size:18px;">DOUBLE B</span>
-      <span style="opacity:.75;font-size:12px;margin-left:10px;letter-spacing:.12em;text-transform:uppercase">surreal studio</span>
-    </div>
+  <section class="scene">
+    <div class="badge">DEBUG: if you don’t see red boxes, the page isn’t updating</div>
 
-    <!-- Floating services (links) -->
-    <nav class="sceneLinks" aria-label="Services navigation">
-      <a href="marketing.html">Marketing</a>
-      <a href="crm.html">CRM</a>
-      <a href="social-media.html">Social media</a>
-      <a href="graphic-design.html">Graphic design</a>
-      <a href="web-design.html">Web design</a>
-      <a href="motion-graphics.html">Motion graphics</a>
-    </nav>
+    <div class="decor portal"></div>
+    <div class="decor mirror"></div>
 
-    <!-- Exit overlay (cinematic darkening) -->
-    <div class="sceneExitOverlay" aria-hidden="true"></div>
-
-    <!-- Decorative portal + mirror (not clickable) -->
-    <div class="decor portal" aria-hidden="true"><span class="shape"></span></div>
-    <div class="decor mirror" aria-hidden="true"><span class="shape"></span></div>
-
-    <!-- Clickable objects (pages) -->
-    <button class="obj ball" data-go="ball.html" data-exit="ball" aria-label="Ball — enter">
-      <span class="shape"></span>
-    </button>
-
-    <button class="obj figure" data-go="figure.html" data-exit="figure" aria-label="Figure — enter">
-      <span class="shape"></span>
-    </button>
-
-    <button class="obj eye" data-go="eye.html" data-exit="eye" aria-label="Eye — enter">
-      <span class="shape"></span>
-    </button>
-
-    <!-- Floor -->
-    <div class="floor" aria-hidden="true"></div>
-
-    <!-- Bottom-left request form -->
-    <form class="sceneForm" action="request.html" method="GET">
-      <div class="kicker">Request</div>
-
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required />
-
-      <label for="help">How can we help?</label>
-      <input id="help" name="help" type="text" />
-
-      <label for="info">More information</label>
-      <textarea id="info" name="info"></textarea>
-
-      <div class="btnRow">
-        <button class="btn btnPrimary" type="submit">Send →</button>
-        <a class="btn" href="who-we-are.html">About</a>
-      </div>
-
-      <div class="small" style="margin-top:10px;opacity:.9">
-        Tip: click ball / figure / eye.
-      </div>
-    </form>
+    <div class="obj ball" onclick="alert('ball click ok')"></div>
+    <div class="obj figure" onclick="alert('figure click ok')"></div>
+    <div class="obj eye" onclick="alert('eye click ok')"></div>
   </section>
-
-  <script>
-    (function(){
-      const scene = document.querySelector(".scene");
-      if(!scene) return;
-
-      const buttons = scene.querySelectorAll(".obj[data-go][data-exit]");
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          if(scene.classList.contains("is-transitioning")) return;
-
-          const href = btn.getAttribute("data-go");
-          const exit = btn.getAttribute("data-exit"); // ball | eye | figure
-
-          scene.classList.add("is-transitioning");
-          scene.classList.add("exit-" + exit);
-
-          setTimeout(() => {
-            window.location.href = href;
-          }, 520);
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
